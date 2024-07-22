@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation, route }) => {
       try {
         console.log(email);
         const response = await axios.get(
-          `${API_URL}/api/students/email/${email}`
+          `http://localhost:5000/api/students/email/${email}`
         );
         setUser(response.data);
         const firstName = response.data.firstName || "";
@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation, route }) => {
       const fetchEvents = async () => {
         try {
           const response = await axios.get(
-            `${API_URL}/api/alls/getByEmailAndToday/${email}`
+            `http://localhost:5000/api/alls/getByEmailAndToday/${email}`
           );
           console.log(response.data, "results");
           setEvents(response.data);

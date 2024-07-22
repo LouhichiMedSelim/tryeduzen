@@ -21,7 +21,7 @@ const ScreenC = ({ navigation, route }) => {
     const handleContinue = async () => {
         const verificationCode = code.join('');
         try {
-            const response = await axios.post(`${API_URL}/api/students/verify-email`, {
+            const response = await axios.post(`http://localhost:5000/api/students/verify-email`, {
                 email,
                 verificationCode,
             });

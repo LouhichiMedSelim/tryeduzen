@@ -28,7 +28,7 @@ const Detail = ({ route, navigation }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${API_URL}/api/alls/create`, {
+      const response = await axios.post(`http://localhost:5000/api/alls/create`, {
         email,
         dateOf: date,
         nameOf: name,

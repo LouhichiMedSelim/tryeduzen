@@ -16,7 +16,7 @@ const UpperNavBar = ({ navigation, currentScreen, email }) => {
 
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/students/email/${email}`);
+                const response = await axios.get(`http://localhost:5000/api/students/email/${email}`);
                 const firstName = response.data.firstName || "";
                 const lastName = response.data.lastName || "";
                 setInitials(`${firstName.charAt(0)}${lastName.charAt(0)}`);

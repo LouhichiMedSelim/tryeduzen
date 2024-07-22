@@ -25,7 +25,7 @@ const EditProfile = ({ navigation, route }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/students/email/${email}`);
+        const response = await axios.get(`http://localhost:5000/api/students/email/${email}`);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -36,7 +36,7 @@ const EditProfile = ({ navigation, route }) => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`${API_URL}/api/students/update/${email}`, user);
+      await axios.put(`http://localhost:5000/api/students/update/${email}`, user);
       navigation.navigate('MyProfile', { email, updated: true }); // Navigate back and pass updated flag
     } catch (error) {
       console.error('Error updating user data:', error);

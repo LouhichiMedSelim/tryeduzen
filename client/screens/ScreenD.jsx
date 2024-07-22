@@ -19,7 +19,7 @@ const ScreenD = ({ navigation, route }) => {
 
     const handleContinue = async () => {
         try {
-            const response = await axios.post(`${API_URL}/api/students/update/${email}`, {
+            const response = await axios.post(`http://localhost:5000/api/students/update/${email}`, {
                 firstName,
                 lastName,
                 birthDate: birthDate.toISOString().split('T')[0], // format date to YYYY-MM-DD

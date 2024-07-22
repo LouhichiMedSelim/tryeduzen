@@ -45,7 +45,7 @@ import { API_URL, CALENDARIFIC_API_KEY, CALENDARIFIC_COUNTRY, CALENDARIFIC_YEAR 
 
 export const fetchItems = async (email) => {
   console.log(email)
-  const response = await axios.get(`${API_URL}/api/alls/getByEmail/${email}`);
+  const response = await axios.get(`http://localhost:5000/api/alls/getByEmail/${email}`);
   
   return response.data;
 };

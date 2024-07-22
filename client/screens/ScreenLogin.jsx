@@ -5,6 +5,7 @@ import exampleImage from '../assets/logo.png';
 import { API_URL } from '@env';
 import Icon from "react-native-vector-icons/Ionicons";
 const { width, height } = Dimensions.get('window');
+import apiUrl from "../config";
 
 const ScreenLogin = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -13,12 +14,13 @@ const ScreenLogin = ({ navigation }) => {
     const handleLogin = async () => {
 
         try {
-            const response = await axios.post(`${API_URL}/api/auth`, {
+            console.log(apiUrl.apiUrl)
+            const response = await axios.post(`http://localhost:5000/api/auth`, {
                 email,
                 password,
             });
             Alert.alert('Success', 'Connexion réussie');
-            navigation.navigate('Home', {email}); // Replace with your actual home screen name
+            navigation.navigate('ScreenE', {email}); // Replace with your actual home screen name
         } catch (error) {
             if (error.response) {
                 Alert.alert('Error', error.response.data.message);

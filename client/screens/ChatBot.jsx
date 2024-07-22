@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, Image } from 'react-native';
 import axios from 'axios';
 
-const dialogflowApiUrl = 'https://dialogflow.googleapis.com/v2/projects/your-project-id/agent/sessions/123456:detectIntent';
-const dialogflowApiKey = 'your-api-key'; // Replace with your Dialogflow API key
+const serverApiUrl = 'http://192.168.1.130:3000/chatbot'; // Replace with your server URL
 
 function ChatBot() {
     const [query, setQuery] = useState('');
@@ -19,20 +18,9 @@ function ChatBot() {
         setShowResponseImage(true); // Show response image
 
         try {
-            const response = await axios.post(dialogflowApiUrl, {
-                queryInput: {
-                    text: {
-                        text: query,
-                        languageCode: 'en-US',
-                    },
-                },
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${dialogflowApiKey}`,
-                },
-            });
+            const response = await axios.post(serverApiUrl, { query });
 
-            const responseText = response.data.queryResult.fulfillmentText;
+            const responseText = response.data.message;
             setMessages(prevMessages => [...prevMessages, { text: responseText, isUser: false }]);
         } catch (error) {
             console.error(error);

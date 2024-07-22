@@ -14,7 +14,7 @@ const MyProfile = ({ navigation, route }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/students/email/${email}`);
+        const response = await axios.get(`http://localhost:5000/api/students/email/${email}`);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -97,7 +97,7 @@ const MyProfile = ({ navigation, route }) => {
         type: 'image/jpeg',
       });
 
-      const response = await axios.patch(`${API_URL}/api/students/${user._id}/profile-picture`, formData, {
+      const response = await axios.patch(`http://192.168.0.10:5000/api/students/${user._id}/profile-picture`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
