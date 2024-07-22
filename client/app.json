@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "EduZen",
-    "slug": "EduZen",
+    "name": "eduuuZeen",
+    "slug": "eduuuzeen",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "native",
+      "image": "./assets/bkg.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "ios": {
@@ -18,10 +18,25 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "package": "com.selim1919.eduuuzeen"
     },
     "web": {
-      "favicon": "./assets/splash.png"
+      "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "724914b3-b5ad-4397-a171-25ae22be4b43"
+      },
+      "apiUrl": {
+      "development": "http://192.168.1.30:5000",
+      "staging": "http://192.168.1.30:5000",
+      "production": "http://192.168.1.30:5000"
     }
+  }
   }
 }

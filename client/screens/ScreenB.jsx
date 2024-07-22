@@ -10,9 +10,11 @@ import {
   Dimensions,
 } from "react-native";
 import axios from "axios";
-import exampleImage from "../assets/splash.png";
+import exampleImage from "../assets/logo.png";
 import Icon from "react-native-vector-icons/Ionicons";
-import { API_URL } from "@env";
+import Constants from 'expo-constants';
+
+import apiUrl from "../config";
 
 const ScreenB = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -24,14 +26,14 @@ const ScreenB = ({ navigation }) => {
 
   const handleContinue = async () => {
     if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
+      Alert.alert("Alerte", "Les mots de passe ne correspondent pas");
       return;
     }
 
     try {
-      console.log(API_URL);
+      console.log(apiUrl.apiUrl.development);
       const response = await axios.post(
-        `${API_URL}/api/students/register`,
+        `http://localhost:5000/api/students/register`,
         {
           email,
           password,
@@ -47,14 +49,14 @@ const ScreenB = ({ navigation }) => {
       // Assuming response.data contains the JSON response from the server
       Alert.alert(
         "Success",
-        "Registration successful, please check your email for verification code"
+        "Inscription réussie, veuillez vérifier votre email pour le code de vérification"
       );
       navigation.navigate("ScreenC", { email });
     } catch (error) {
       if (error.response) {
         const errorMessage = error.response.data.message;
         if (errorMessage === "Student with given email already exists!") {
-          Alert.alert("Error", "Email already exists. Redirecting to login.");
+          Alert.alert("Alerte", "Cet email existe déjà. Redirection vers la page de connexion.");
           navigation.navigate("ScreenLogin");
         } else {
           Alert.alert("Error", errorMessage || "Registration failed");
@@ -62,11 +64,11 @@ const ScreenB = ({ navigation }) => {
       } else if (error.request) {
         Alert.alert(
           "Error",
-          "No response received from server. Please try again."
+          "Aucune réponse reçue du serveur. Veuillez réessayer."
         );
       } else {
         console.error("Error", error.message);
-        Alert.alert("Error", "An error occurred. Please try again.");
+        Alert.alert("Alerte", "Une erreur s'est produite. Veuillez réessayer.");
       }
     }
   };
@@ -84,7 +86,7 @@ const ScreenB = ({ navigation }) => {
       <Image source={exampleImage} style={styles.logo} />
       <Text style={styles.title}>Créez votre profil</Text>
       <Text style={styles.subtitle}>Configurez votre identification</Text>
-      {console.log(API_URL)}
+      {console.log(apiUrl)}
 
       <TextInput
         style={styles.input}
@@ -136,13 +138,13 @@ const ScreenB = ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("ScreenLogin")}>
-        <Text style={styles.loginText}>Already have an account? Sign-in</Text>
+        <Text style={styles.loginText}>Vous avez deja un compte? Sign-in</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const { width } = Dimensions.get("window");
+const { width , height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -152,8 +154,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: width * 0.35,
+    height: height * 0.2,
     marginBottom: 20,
   },
   title: {

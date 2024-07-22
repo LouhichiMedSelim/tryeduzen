@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import exampleImage from '../assets/splash.png';
+import exampleImage from '../assets/logo.png';
 
 const ScreenA = ({ navigation }) => {
   return (
@@ -21,6 +21,9 @@ const ScreenA = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => console.log('Button 3 pressed')}>
         <Text style={styles.buttonText}>Coach</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => console.log('Button 3 pressed')}>
+        <Text style={styles.buttonText}>Professionnel</Text>
       </TouchableOpacity>
     </View>
   );

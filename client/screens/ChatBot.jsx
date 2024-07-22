@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, Image } from 'react-native';
 import axios from 'axios';
+
+const serverApiUrl = 'http://192.168.1.130:3000/chatbot'; // Replace with your server URL
 
 function ChatBot() {
     const [query, setQuery] = useState('');
@@ -13,10 +15,13 @@ function ChatBot() {
         setMessages([...messages, { text: query, isUser: true }]);
         setQuery('');
 
+        setShowResponseImage(true); // Show response image
+
         try {
-            setShowResponseImage(true); // Show response image
-            const response = await axios.post('http://192.168.1.149:3000/chatbot', { query });
-            setMessages(prevMessages => [...prevMessages, { text: response.data.response, isUser: false }]);
+            const response = await axios.post(serverApiUrl, { query });
+
+            const responseText = response.data.message;
+            setMessages(prevMessages => [...prevMessages, { text: responseText, isUser: false }]);
         } catch (error) {
             console.error(error);
             setMessages(prevMessages => [...prevMessages, { text: 'Error processing request', isUser: false }]);

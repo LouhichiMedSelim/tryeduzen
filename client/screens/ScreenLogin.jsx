@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import axios from 'axios';
-import exampleImage from '../assets/splash.png';
+import exampleImage from '../assets/logo.png';
 import { API_URL } from '@env';
-
+import Icon from "react-native-vector-icons/Ionicons";
 const { width, height } = Dimensions.get('window');
+import apiUrl from "../config";
 
 const ScreenLogin = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const handleLogin = async () => {
 
         try {
-            const response = await axios.post(`${API_URL}/api/auth`, {
+            console.log(apiUrl.apiUrl)
+            const response = await axios.post(`http://localhost:5000/api/auth`, {
                 email,
                 password,
             });
-            Alert.alert('Success', 'Login successful');
-            navigation.navigate('Home', {email}); // Replace with your actual home screen name
+            Alert.alert('Success', 'Connexion réussie');
+            navigation.navigate('ScreenE', {email}); // Replace with your actual home screen name
         } catch (error) {
             if (error.response) {
                 Alert.alert('Error', error.response.data.message);
             } else if (error.request) {
-                Alert.alert('Error', 'No response from server. Please try again later.');
+                Alert.alert('Alerte', 'Aucune réponse du serveur. Veuillez réessayer plus tard.');
             } else {
-                Alert.alert('Error', 'An error occurred. Please try again.');
+                Alert.alert('Alerte', "Une erreur s'est produite. Veuillez réessayer.");
             }
         }
     };
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+      };
 
     return (
         <View style={styles.container}>
@@ -42,24 +47,63 @@ const ScreenLogin = ({ navigation }) => {
                 keyboardType="email-address"
                 autoCapitalize="none"
             />
-            <TextInput
+            {/* <TextInput
                 placeholder="Password"
                 style={styles.input}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
-            />
+            /> */}
+<View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Mot de passe"
+          secureTextEntry={!isPasswordVisible}
+          value={password}
+          onChangeText={setPassword}
+        />
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.iconContainer}
+        >
+          <Icon
+            name={isPasswordVisible ? "eye-off" : "eye"}
+            size={24}
+            color="#888"
+          />
+        </TouchableOpacity>
+      </View>
+
+
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('ScreenB' , {email})}>
-                <Text style={styles.registerText}>Don't have an account? Register</Text>
+                <Text style={styles.registerText}>Vous n'avez pas de compte? Register</Text>
             </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    passwordContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        height: 50,
+        borderColor: "#ddd",
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 10,
+      },
+      passwordInput: {
+        flex: 1,
+        paddingHorizontal: 10,
+        height: "100%",
+      },
+      iconContainer: {
+        paddingHorizontal: 10,
+      },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -68,9 +112,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f0',
     },
     logo: {
-        width: width * 0.4,
-        height: width * 0.4,
-        marginBottom: height * 0.02,
+        width: width * 0.35,
+        height: height * 0.2,
+        marginBottom: 20,
     },
     title: {
         fontSize: width * 0.06,
@@ -86,7 +130,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: width * 0.03,
         marginBottom: height * 0.02,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
     },
     button: {
         backgroundColor: '#20AD96',

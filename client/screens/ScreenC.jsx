@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert, Platform, Keyboard, ScrollView,Dimensions } from 'react-native'; // Import Keyboard module
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert, Platform, Keyboard, ScrollView,Dimensions } from 'react-native'; 
 import axios from 'axios';
-import exampleImage from '../assets/splash.png';
+import exampleImage from '../assets/logo.png';
 import { API_URL } from '@env';
 
 const ScreenC = ({ navigation, route }) => {
@@ -21,19 +21,19 @@ const ScreenC = ({ navigation, route }) => {
     const handleContinue = async () => {
         const verificationCode = code.join('');
         try {
-            const response = await axios.post(`${API_URL}/api/students/verify-email`, {
+            const response = await axios.post(`http://localhost:5000/api/students/verify-email`, {
                 email,
                 verificationCode,
             });
-            Alert.alert('Success', 'Email verified successfully');
+            Alert.alert('Success', 'Email vérifié avec succès');
             navigation.navigate('ScreenD', { email });
         } catch (error) {
             if (error.response) {
-                Alert.alert('Error', error.response.data.message);
+                Alert.alert('Alerte', error.response.data.message);
             } else if (error.request) {
-                Alert.alert('Error', 'No response from server. Please try again later.');
+                Alert.alert('Alerte', 'Aucune réponse du serveur. Veuillez réessayer plus tard.');
             } else {
-                Alert.alert('Error', 'An error occurred. Please try again.');
+                Alert.alert('Alerte', "Une erreur s'est produite. Veuillez réessayer.");
             }
         }
     };
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     logo: {
-        width: width * 0.5,
+        width: width * 0.35,
         height: height * 0.2,
         marginBottom: 20,
     },

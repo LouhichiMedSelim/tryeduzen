@@ -15,10 +15,15 @@ import HeartScreen from "./screens/HeartScreen";
 import ScreenLogin from "./screens/ScreenLogin";
 import PremiumScreen from "./screens/PremiumScreen";
 import Detail from "./screens/AddFormu";
-import CardDetails from './screens/CardDetails';
+import CardDetails from "./screens/CardDetails";
+import MyProfile from "./screens/MyProfile";
+import EditProfile from "./screens/EditProfile";
+// import connectToDatabase from './db';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ScreenA">
@@ -86,21 +91,45 @@ export default function App() {
           component={HeartScreen}
         />
 
-<Stack.Screen options={{
-            headerShown: false 
-          }} name="ScreenLogin" component={ScreenLogin} />
-<Stack.Screen options={{
-            headerShown: false 
-          }} name="PremiumScreen" component={PremiumScreen} />
-<Stack.Screen options={{
-            headerShown: false 
-          }} name="Detail" component={Detail} />
-          <Stack.Screen options={{
-            headerShown: false 
-          }} name="CardDetails" component={CardDetails} />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="ScreenLogin"
+          component={ScreenLogin}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="PremiumScreen"
+          component={PremiumScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Detail"
+          component={Detail}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="CardDetails"
+          component={CardDetails}
+        />
 
-
-
+        <Stack.Screen
+          name="MyProfile"
+          component={MyProfile}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
